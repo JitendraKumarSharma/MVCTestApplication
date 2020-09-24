@@ -1,26 +1,17 @@
-﻿using Microsoft.Ajax.Utilities;
-using MVCTestProject.Models;
-using Newtonsoft.Json;
-using System;
+﻿using MVCTestProject.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace MVCTestProject.Controllers
 {
     public class CascadeDropdownController : Controller
     {
-        public static int countryId = 0;
-        public static int stateId = 0;
         public ActionResult Index()
         {
-            if (countryId == 0)
-            {
-                TempData["Country"] = LoadCountries();
-                TempData["State"] = LoadStates();
-                TempData["City"] = LoadCities();
-            }
+            TempData["Country"] = LoadCountries();
+            TempData["State"] = LoadStates();
+            TempData["City"] = LoadCities();
             return View();
         }
 
@@ -79,13 +70,11 @@ namespace MVCTestProject.Controllers
                 new City { CityName = "Auburn", CityId = 17, StateId = 6  },
                 new City { CityName = "Selma", CityId = 18, StateId = 6 }
             };
-            //return Json(cities, JsonRequestBehavior.AllowGet);
             return cities;
         }
 
         public JsonResult LoadStateByCountry(int id)
         {
-            countryId = id;
             var stateList = (List<State>)TempData.Peek("State");
             var stateByCountry = stateList.Where(state => state.CountryId == id).ToList();
             return Json(stateByCountry, JsonRequestBehavior.AllowGet);
@@ -93,7 +82,6 @@ namespace MVCTestProject.Controllers
 
         public JsonResult LoadCityByState(int id)
         {
-            stateId = id;
             var cityList = (List<City>)TempData.Peek("City");
             var cityByState = cityList.Where(city => city.StateId == id).ToList();
             return Json(cityByState, JsonRequestBehavior.AllowGet);
