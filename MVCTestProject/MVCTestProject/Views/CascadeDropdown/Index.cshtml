@@ -1,0 +1,132 @@
+﻿@using MVCTestProject.Models;
+@using Newtonsoft.Json;
+
+@{
+    ViewBag.Title = "Index";
+    var Country = (List<Country>)TempData.Peek("Country");
+    var State = (List<State>)TempData.Peek("State");
+    var City = (List<City>)TempData.Peek("City");
+}
+
+<h2>Index</h2>
+<div class="col-md-12">
+    <div class="form-group">
+        <label>Country</label>
+        <select id="drpCountry" class="form-control">
+            @{
+                foreach (var item in Country)
+                {
+                    <option value="@item.CountryId">@item.CountryName</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label>State</label>
+        <select id="drpState" class="form-control">
+            @{
+                foreach (var item in State)
+                {
+                    <option value="@item.StateId">@item.StateName</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label>City</label>
+        <select id="drpCity" class="form-control">
+            @{
+                foreach (var item in City)
+                {
+                    <option value="@item.StateId">@item.CityName</option>
+                }
+            }
+        </select>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        debugger
+        if (sessionStorage.getItem('country') > 0) {
+            var cid = sessionStorage.getItem('country');
+            sessionStorage.setItem('country', cid);
+            $("#drpCountry").val(cid);
+            //$("#drpCountry option[value=" + cid + "]").attr('selected', 'selected');
+            GetStateByCountry(sessionStorage.getItem('country'),true);
+            $("#drpCity").val(sessionStorage.getItem('city'));
+        }
+        else {
+            GetStateByCountry($("#drpCountry").val(),false);
+        }
+
+        $("#drpCountry").change(function () {
+            GetStateByCountry($("#drpCountry").val());
+        });
+        $("#drpState").change(function () {
+            sessionStorage.setItem('state', $("#drpState").val());
+            GetCityByState($("#drpState").val());
+        });
+        $("#drpCity").change(function () {
+            sessionStorage.setItem('city', $("#drpCity").val());
+        });
+    });
+
+    function GetStateByCountry(countryId, isPostback) {
+        sessionStorage.setItem('country', countryId);
+        var Paramerter = {
+                id: countryId
+            }
+            $.ajax({
+                type: 'POST',
+                url:'@Url.Action("LoadStateByCountry")',
+                dataType: 'json',
+                data: Paramerter,
+                async: false,
+                success: function (states) {
+                    $("#drpState").empty();
+                    var option = "";
+                    $.each(states, function (i, state) {
+                        option+=('<option value="' + state.StateId + '">' + state.StateName + '</option>');
+                    });
+                    $("#drpState").html(option);
+                    if (isPostback) {
+                        $("#drpState").val(sessionStorage.getItem('state'));
+                    }
+                    else {
+                        sessionStorage.setItem('state', $("#drpState").val());
+                    }
+                    var stateId = $("#drpState").val();
+                    GetCityByState(stateId, isPostback);
+                },
+            });
+    }
+
+    function GetCityByState(stateId, isPostback) {
+        sessionStorage.setItem('state', stateId);
+        var Paramerter = {
+            id: stateId
+        }
+            $.ajax({
+                        type: 'POST',
+                        url:'@Url.Action("LoadCityByState")',
+                        dataType: 'json',
+                        data: Paramerter,
+                        async: false,
+                        success: function (city) {
+                            $("#drpCity").empty();
+                            var option1 = "";
+                            $.each(city, function (i, city) {
+                                option1+=('<option value="' + city.CityId + '">' + city.CityName + '</option>');
+                            });
+                            $("#drpCity").html(option1);
+                            if (isPostback) {
+                                $("#drpCity").val(sessionStorage.getItem('city'));
+                            }
+                            else {
+                                sessionStorage.setItem('city', $("#drpCity").val());
+                            }
+                        }
+                    });
+    }
+</script>
