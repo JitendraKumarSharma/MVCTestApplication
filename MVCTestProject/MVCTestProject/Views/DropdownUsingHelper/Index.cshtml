@@ -1,0 +1,59 @@
+﻿@model MVCTestProject.Models.CascadeModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Cascade Dropdown using Helper Control</h2>
+
+@using (Html.BeginForm("Index", "DropdownUsingHelper", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.Label("Country", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.CountryId, Model.Countries, null, new { @class = "form-control", onchange = "document.forms[0].submit();" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("State", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.StateId, Model.States, null, new { @class = "form-control", disabled = "disabled", onchange = "document.forms[0].submit();" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("City", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.CityId, Model.Cities, null, new { @class = "form-control", disabled = "disabled" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>*@
+    </div>
+}
+<script type="text/javascript">
+    $(function () {
+        if ($("#StateId option").length > 1) {
+            $("#StateId").removeAttr("disabled");
+        }
+
+        if ($("#CityId option").length > 1) {
+            $("#CityId").removeAttr("disabled");
+        }
+
+        if ($("#CountryId").val() != "" && $("#StateId").val() != "" && $("#CityId").val() != "") {
+            var message = "Country: " + $("#CountryId option:selected").text();
+            message += "\nState: " + $("#StateId option:selected").text();
+            message += "\nCity: " + $("#CityId option:selected").text();
+            alert(message);
+        }
+    });
+</script>

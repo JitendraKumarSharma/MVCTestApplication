@@ -16,7 +16,7 @@ namespace MVCTestProject
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "CascadeDropdown", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "DropdownUsingHelper", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
