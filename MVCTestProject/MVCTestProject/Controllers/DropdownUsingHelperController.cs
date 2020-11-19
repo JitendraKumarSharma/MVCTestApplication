@@ -13,6 +13,37 @@ namespace MVCTestProject.Controllers
         private static readonly CascadeModel cm = new CascadeModel();
         public ActionResult Index()
         {
+            //Reserve each word in string.
+            string inputString = "one two three four five";
+            string resultString = string.Join(" ", inputString
+                .Split(' ')
+                .Select(x => new String(x.Reverse().ToArray())));
+
+            Person magnus = new Person { FirstName = "Magnus", LastName = "Hedlund" };
+            Person terry = new Person { FirstName = "Terry", LastName = "Adams" };
+            Person charlotte = new Person { FirstName = "Charlotte", LastName = "Weiss" };
+            Person arlene = new Person { FirstName = "Arlene", LastName = "Huff" };
+
+            Pet barley = new Pet { Name = "Barley", Owner = terry };
+            Pet boots = new Pet { Name = "Boots", Owner = terry };
+            Pet whiskers = new Pet { Name = "Whiskers", Owner = charlotte };
+            Pet bluemoon = new Pet { Name = "Blue Moon", Owner = terry };
+            Pet daisy = new Pet { Name = "Daisy", Owner = magnus };
+
+            // Create two lists.
+            List<Person> people = new List<Person> { magnus, terry, charlotte, arlene };
+            List<Pet> pets = new List<Pet> { barley, boots, whiskers, bluemoon, daisy };
+
+            var query = from person in people
+                        join pet in pets on person equals pet.Owner into gj
+                        from subpet in gj.DefaultIfEmpty()
+                        select new { person.FirstName, PetName = subpet?.Name ?? String.Empty };
+
+            foreach (var v in query)
+            {
+                Console.WriteLine($"{v.FirstName + ":",-15}{v.PetName}");
+            }
+
             cm.Countries = (List<SelectListItem>)LoadCountries().Select(cntry => new SelectListItem()
             {
                 Text = cntry.CountryName,
@@ -20,6 +51,8 @@ namespace MVCTestProject.Controllers
             }).ToList();
             cm.States = new List<SelectListItem>();
             cm.Cities = new List<SelectListItem>();
+
+            Session["data"] = null;
             return View(cm);
             
         }

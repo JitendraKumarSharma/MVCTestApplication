@@ -1,0 +1,38 @@
+﻿@model MVCTestProject.Models.SimpleInterestModel
+@{
+    ViewBag.Title = "SimpleInterestWithModel";
+}
+
+@using (Ajax.BeginForm("CalculateSimpleInterestResult", "SendDataFromViewToAction",
+                            new AjaxOptions { UpdateTargetId = "divInterestDeatils" }))
+{
+
+    <fieldset>
+        <legend>Calulate Simple Interest</legend>
+        <div id="divInterestDeatils"></div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Amount)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Amount)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Rate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Rate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Year)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Year)
+        </div>
+        <p>
+            <input type="submit" value="Calculate" />
+        </p>
+    </fieldset>
+}
