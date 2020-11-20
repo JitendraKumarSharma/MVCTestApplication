@@ -80,8 +80,11 @@ namespace MVCTestProject.Controllers
         }
 
         [HttpPost]
-        public ActionResult CalculateSimpleInterestResult(SimpleInterestModel model)
+        [HandleError]
+        public ContentResult CalculateSimpleInterestResult(SimpleInterestModel model)
         {
+            Session["Name"] = "Helo";
+            HttpContext.Session["jj"] = "lkl";
             decimal simpleInteresrt = (model.Amount * model.Year * model.Rate) / 100;
             StringBuilder sbInterest = new StringBuilder();
             sbInterest.Append("<b>Amount :</b> " + model.Amount + "<br/>");
