@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MVCTestProject.CustomModelBinders;
+using MVCTestProject.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +18,7 @@ namespace MVCTestProject
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            ModelBinders.Binders.Add(typeof(StudentViewModel), new StudentModelBinder());
         }
     }
 }

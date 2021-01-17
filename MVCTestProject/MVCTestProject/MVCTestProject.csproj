@@ -45,10 +45,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -124,8 +132,28 @@
     <Compile Include="Controllers\DropdownUsingHelperController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SendDataFromViewToActionController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="CustomModelBinders\StudentModelBinder.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="ModelFromDatabase\StudentInfo.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StudentInfo.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelFromDatabase\StudentInfo.cs">
+      <DependentUpon>StudentInfo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelFromDatabase\StudentInfo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StudentInfo.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ModelFromDatabase\StudentInfo1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StudentInfo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CascadeModel.cs" />
     <Compile Include="Models\City.cs" />
@@ -135,6 +163,7 @@
     <Compile Include="Models\SimpleInterestModel.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\StudentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -145,8 +174,25 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="ModelFromDatabase\StudentInfo.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>StudentInfo.Context.cs</LastGenOutput>
+      <DependentUpon>StudentInfo.edmx</DependentUpon>
+    </Content>
+    <Content Include="ModelFromDatabase\StudentInfo.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StudentInfo.edmx</DependentUpon>
+      <LastGenOutput>StudentInfo1.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="ModelFromDatabase\StudentInfo.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>StudentInfo.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="ModelFromDatabase\StudentInfo.edmx.diagram">
+      <DependentUpon>StudentInfo.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -178,6 +224,7 @@
     <Content Include="Views\DropdownUsingHelper\Index.cshtml" />
     <Content Include="Views\SendDataFromViewToAction\SimpleInterest.cshtml" />
     <Content Include="Views\SendDataFromViewToAction\SimpleInterestWithModel.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -194,6 +241,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

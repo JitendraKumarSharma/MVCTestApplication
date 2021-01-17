@@ -1,12 +1,20 @@
 ﻿using MVCTestProject.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace MVCTestProject.Controllers
 {
+    [RoutePrefix("CascadeDropdown")]
     public class CascadeDropdownController : Controller
     {
+        [Route("Index")]
+        [HttpGet]
+        [OutputCache(Duration = 100)]
+        [ChildActionOnly]
         public ActionResult Index()
         {
             TempData["Country"] = LoadCountries();
@@ -73,11 +81,18 @@ namespace MVCTestProject.Controllers
             return cities;
         }
 
-        public JsonResult LoadStateByCountry(int id)
+        [ValidateInput(false)]
+        public JsonResult LoadStateByCountry(int id, string name)
         {
             var stateList = (List<State>)TempData.Peek("State");
             var stateByCountry = stateList.Where(state => state.CountryId == id).ToList();
+
             return Json(stateByCountry, JsonRequestBehavior.AllowGet);
+        }
+
+        public Tuple<string, int> Demo()
+        {
+            return new Tuple<string, int>("hello", 1);
         }
 
         public JsonResult LoadCityByState(int id)

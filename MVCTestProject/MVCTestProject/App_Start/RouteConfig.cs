@@ -13,19 +13,21 @@ namespace MVCTestProject
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            
 
+
+            routes.MapMvcAttributeRoutes();
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "SendDataFromViewToAction", action = "SimpleInterestWithModel", id = UrlParameter.Optional }
+                defaults: new { controller = "Student", action = "Index", id = UrlParameter.Optional }
+                //constraints: new { controller = "^H.*", action = "^Index$|^Contact$" }
             );
 
-            routes.MapRoute(
-                name: "test",
-                url: "CascadeDropdown/Index",
-                defaults: new { controller = "CascadeDropdown", action = "Index", id = UrlParameter.Optional }
-            );
+            //routes.MapRoute(
+            //    name: "test",
+            //    url: "CascadeDropdown/Index",
+            //    defaults: new { controller = "CascadeDropdown", action = "Index", id = UrlParameter.Optional }
+            //);
         }
     }
 }

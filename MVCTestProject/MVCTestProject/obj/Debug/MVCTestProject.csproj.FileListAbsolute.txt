@@ -155,3 +155,7 @@ D:\StudyProjects\MVCTestApplication\MVCTestProject\MVCTestProject\obj\Debug\MVCT
 D:\StudyProjects\MVCTestApplication\MVCTestProject\MVCTestProject\obj\Debug\MVCTestProject.dll
 D:\StudyProjects\MVCTestApplication\MVCTestProject\MVCTestProject\obj\Debug\MVCTestProject.pdb
 D:\StudyProjects\MVCTestApplication\MVCTestProject\MVCTestProject\obj\Debug\MVCTestProject.csprojAssemblyReference.cache
+D:\StudyProjects\MVCTestApplication\MVCTestProject\MVCTestProject\bin\EntityFramework.dll
+D:\StudyProjects\MVCTestApplication\MVCTestProject\MVCTestProject\bin\EntityFramework.SqlServer.dll
+D:\StudyProjects\MVCTestApplication\MVCTestProject\MVCTestProject\bin\EntityFramework.xml
+D:\StudyProjects\MVCTestApplication\MVCTestProject\MVCTestProject\bin\EntityFramework.SqlServer.xml

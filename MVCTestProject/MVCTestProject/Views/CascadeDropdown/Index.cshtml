@@ -13,19 +13,19 @@
     <div class="form-group">
         <label>Country</label>
         <select id="drpCountry" class="form-control">
-                @{
-                    foreach (var item in Country)
-                    {
-                        <option value="@item.CountryId">@item.CountryName</option>
-                    }
+            @{
+                foreach (var item in Country)
+                {
+                    <option value="@item.CountryId">@item.CountryName</option>
                 }
-            </select>
+            }
+        </select>
         @*@Html.DropDownList("Country", Country.Select(cntry => new SelectListItem()
-           {
-               Text = cntry.CountryName,
-               Value = cntry.CountryId.ToString(),
-               Selected = cntry.CountryName == "India" ? true : false
-           }), null, new { @class = "form-control" })*@
+            {
+                Text = cntry.CountryName,
+                Value = cntry.CountryId.ToString(),
+                Selected = cntry.CountryName == "India" ? true : false
+            }), null, new { @class = "form-control" })*@
     </div>
     <div class="form-group">
         <label>State</label>
@@ -81,7 +81,8 @@
     function GetStateByCountry(countryId, isPostback) {
         sessionStorage.setItem('country', countryId);
         var Paramerter = {
-                id: countryId
+            id: countryId,
+            name: '<b>Jeet</b>'
             }
             $.ajax({
                 type: 'POST',

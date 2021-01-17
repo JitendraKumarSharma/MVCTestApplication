@@ -1,0 +1,101 @@
+﻿@*@model MVCTestProject.ViewModels.StudentViewModel*@
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("StudentInformation", "Student", FormMethod.Post, null))
+{
+
+    
+        <table>
+
+            <tr class="textbox">
+                <td colspan="2">
+                    <h4><b>Student Information:</b></h4>
+                    <hr />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="textbox">
+                    <h2>@ViewBag.InsertMessage</h2>
+
+                </td>
+            </tr>
+            <tr class="textbox">
+                <td>
+                    StudentId:
+                </td>
+                <td>
+                    @Html.TextBox("StudentId")
+                </td>
+            </tr>
+
+            <tr class="textbox">
+                <td>
+                    Student First Name:
+                </td>
+                <td>
+
+                    @Html.TextBox("FName")  Student Middle Name:  @Html.TextBox("MName")  Student Last Name:  @Html.TextBox("LName")
+                </td>
+            </tr>
+            <tr class="textbox">
+                <td class="2">
+                    Address:
+
+                </td>
+
+            </tr>
+
+            <tr class="textbox">
+
+                <td>
+                    Door No:
+                </td>
+                <td>
+                    @Html.TextBox("DoorNo") Street  No:   @Html.TextBox("StreetNo") Area Name:   @Html.TextBox("AreaName")
+                </td>
+            </tr>
+            <tr class="textbox">
+                <td>
+                    City:
+                </td>
+                <td>
+                    @Html.TextBox("City")
+                </td>
+            </tr>
+            <tr class="textbox">
+                <td>
+                    State:
+                </td>
+                <td>
+                    @Html.TextBox("State")
+                </td>
+            </tr>
+            <tr class="textbox">
+
+                <td>
+                    Country:
+                </td>
+                <td>
+                    @Html.TextBox("Country")
+                </td>
+            </tr>
+            <tr class="textbox">
+                <td>
+                    Marks Secured:
+                </td>
+                <td>
+                    @Html.TextBox("Marks")
+                </td>
+            </tr>
+            <tr class="textbox">
+                <td align="middle" colspan="2">
+                    <input type="submit" value="Save" />
+                </td>
+            </tr>
+        </table>
+    
+}
